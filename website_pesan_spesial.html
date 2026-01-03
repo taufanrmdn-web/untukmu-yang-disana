@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untukmu yang di sana</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      max-width: 600px;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      transform-origin: top center;
+    }
+
+    /* ===== Amplop ===== */
+    .envelope {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+      clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 0, 0 0);
+      transform-origin: top center;
+      transition: transform 1.2s ease;
+      z-index: 2;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+    }
+
+    /* ===== Surat ===== */
+    .letter {
+      transform-origin: top center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+      opacity: 0;
+      animation: fadeIn 2.5s ease forwards;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #555;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+      margin-bottom: 20px;
+    }
+    p.show { opacity: 1; transform: translateY(0); }
+
+    .caption {
+      display: block;
+      font-size: 13px;
+      color: #aaa;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+    .caption.show { opacity: 1; transform: translateY(0); }
+
+    .keyword {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+    .keyword.show { opacity: 1; transform: translateY(0); }
+
+    .image-space {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+      background-size: cover;
+      background-position: center;
+    }
+    .image-space.show { opacity: 1; transform: translateY(0); }
+
+    #open-btn {
+      margin-top: 30px;
+      padding: 12px 22px;
+      border-radius: 22px;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      color: #555;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      transition: transform 0.4s ease, opacity 0.6s ease;
+    }
+    #open-btn:hover { transform: translateY(-2px); }
+
+    .hidden { display: none; }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    @keyframes openEnvelope {
+      from { transform: scaleY(1); }
+      to { transform: scaleY(0); }
+    }
+
+    @keyframes openLetter {
+      0% { transform: scaleY(0.1); opacity: 0; }
+      60% { transform: scaleY(1.05); opacity: 1; }
+      100% { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bg-music" loop>
+    <source src="audio/sedia-aku-sebelum-hujan.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="cover" class="card envelope">
+    <h1>Untukmu yang di sana</h1>
+    <button id="open-btn">supaya lebih tenang</button>
+  </div>
+
+  <div id="letter" class="card letter hidden">
+    <h1>Untukmu yang di sana</h1>
+
+    <span class="keyword">Kuat</span>
+    <span class="caption">tentang tetap berdiri</span>
+    <div class="image-space" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=60');"></div>
+    <p>mungkin hari ini memang kurang baik, mungkin hari ini rasanya lebih sulit. Namun, hari ini kamu masih jadi kamu yang selalu hebat dan luar biasa.</p>
+
+    <span class="keyword">Bertahan</span>
+    <span class="caption">tentang luas yang menenangkan</span>
+    <div class="image-space" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=60');"></div>
+    <p>dari dunia yang berat ini, dari segala masalah yang datang menghampiri, semoga kita selalu dikuatkan untuk melewatinya, ya.</p>
+
+    <span class="keyword">Sudut Pandang</span>
+    <span class="caption">tentang cara melihat</span>
+    <div class="image-space" style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=60');"></div>
+    <p>kau bisa mengatakan mawar itu indah karena kau fokus pada bunganya, bukan durinya.</p>
+
+    <span class="keyword">Senja</span>
+    <span class="caption">tentang singgah dan pergi</span>
+    <div class="image-space" style="background-image:url('https://images.unsplash.com/photo-1501973801540-537f08ccae7b?auto=format&fit=crop&w=1200&q=60');"></div>
+    <p>senja mengajarkan pada kita bahwa sesuatu yang indah hanya bertahan sebentar.</p>
+    <p>senja memang tak seindah pelangi, tapi senja berjanji akan datang kembali esok hari.</p>
+
+    <p>jangan terlalu sedih, Tuhan selalu ada di samping kita. Bahkan setelah kamu ditimpa kesedihan, Tuhan menurunkan rasa aman berupa kantuk, bukan?</p>
+
+    <span class="keyword">Tentang Hidup</span>
+    <span class="caption">tentang menerima</span>
+    <p>orang lama atau orang baru? menikmati hidup, ya benar menikmati hidup, di mana tak ada orang lama atau orang baru kecuali keluarga dan teman.</p>
+
+    <span class="keyword">Cinta</span>
+    <span class="caption">tentang ikhlas</span>
+    <div class="image-space" style="background-image:url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=60');"></div>
+    <p>kata Habibie: jika dia jodohmu, seperti apa pun orang mencoba, dia akan tetap menjadi milikmu, dan begitupun sebaliknya.</p>
+
+    <p>cinta itu di mana kamu melihat dia dan kamu bahagia meskipun dia bukan milikmu. Cinta itu bukan berarti harus memiliki.</p>
+
+    <p>mungkin takdir tak menyatukan kita, namun terima kasih sudah pernah ada, karena tanpamu aku takkan tahu seindah apa mencintai tanpa harus memiliki.</p>
+
+    <p>sebagaimana musim berganti, tidakkah manusia berubah sama cepatnya? beberapa mekar lebih dulu, beberapa layu lebih cepat, dan yang gugur lebih awal itu—ya, itu kita.</p>
+
+    <p>di bawah langit yang tak terbatas ini aku melihatmu. sepotong keberanian yang dibalut kelembutan. aku berkelana bukan hanya untuk melihat dunia, tapi juga untuk melihatmu di dalamnya.</p>
+
+    <p>perihal sesuatu yang kita rindukan, kita menggenggamnya dengan erat, ya. meski akhirnya kita tak bersama, bersyukur kita pernah ada.</p>
+
+    <p>beberapa lembar telah usang, namun lembaran yang paling kukagumi adalah lembaran yang paragrafnya menceritakan tentangmu.</p>
+
+    <p>setelah jalur berliku, kita berdiri di sini, di batas pandangan antara langit dan bumi. kau lihat puncak itu? ah, entahlah—itu hanya metafora, karena puncak sesungguhnya adalah senyuman bibirmu.</p>
+
+    <p>cinta tak pernah mengecewakan, kecuali kamu sedang berada dalam situasi yang kurang beruntung. berterima kasihlah pada dia yang pernah membuatmu tersenyum, tertawa, dan bahagia.</p>
+
+    <span class="keyword">Terima Kasih</span>
+    <span class="caption">tentang yang pernah singgah</span>
+    <p><strong>jadi terima kasih, ya :)</strong></p>
+
+    <footer>Dibuat dengan sepenuh hati 💙</footer>
+  </div>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    const openBtn = document.getElementById('open-btn');
+    const cover = document.getElementById('cover');
+    const letter = document.getElementById('letter');
+
+    openBtn.addEventListener('click', () => {
+      audio.currentTime = 47;
+      audio.volume = 0.4;
+      audio.play();
+
+      cover.classList.add('open');
+      cover.style.animation = 'openEnvelope 1.2s ease forwards';
+      document.body.style.overflow = 'auto';
+
+      setTimeout(() => {
+        cover.classList.add('hidden');
+        letter.classList.remove('hidden');
+        letter.style.animation = 'openLetter 1.8s ease forwards';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 900);
+    });
+
+    const elements = document.querySelectorAll('p, .image-space, .caption, .keyword');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach(el => observer.observe(el));
+
+    window.addEventListener('beforeunload', () => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+  </script>
+</body>
+</html>
